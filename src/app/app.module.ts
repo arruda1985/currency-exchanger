@@ -8,6 +8,8 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { HeaderComponent } from './pages/shared/header/header.component';
 import { CurrencyConverterComponent } from './pages/shared/currency-converter/currency-converter.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CurrencyService } from './services/currency.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,10 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CurrencyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
