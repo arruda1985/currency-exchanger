@@ -33,8 +33,14 @@
         </form>
     </div>
     <div class="result-container">
-        <div>1.00 {{convertionResult?.query?.from}} = {{convertionResult?.info?.rate}} </div>
-        <div> {{convertionResult?.result | currency: convertionResult?.query?.to}} {{convertionResult?.query?.to}}</div>
-        <div [routerLink]="['/detail']"> More Details</div>
+        <div class="result-item-currency">
+            <span>1.00 {{convertionResult?.query?.from}} =
+                {{convertionResult?.info?.rate}} {{convertionResult?.query?.to}}</span>
+        </div>
+        <div class="result-item-result"> {{convertionResult?.result | currency: convertionResult?.query?.to}}
+            {{convertionResult?.query?.to}}</div>
+        <div> <button [routerLink]="['/detail',convertForm, convertForm.get('from')?.value, convertForm.get('to')?.value]" type="button">More
+                Details</button>
+        </div>
     </div>
 </div>

@@ -24,7 +24,21 @@ export class CurrencyConverterComponent {
 
   constructor(private currencyService: CurrencyService) {
     this.symbolsArray = new Array<CurrencySymbol>();
-    this.loadSymbols();
+
+    // const x: unknown = {
+    //   'result': 10,
+    //   'query': {
+    //     'from': "GBP",
+    //     'to': "JPY",
+    //     'amount': 25
+    //   },
+    //   'info': {
+    //     'rate': 157.993729
+    //   },
+    // };
+
+    // this.convertionResult = x as IConvertionResult;
+     this.loadSymbols();
   }
 
   private loadSymbols() {
@@ -68,7 +82,6 @@ export class CurrencyConverterComponent {
 
 
   public convert() {
-
     this.currencyService.convert(
       this.convertForm.controls['from'].value as string,
       this.convertForm.controls['to'].value as string,

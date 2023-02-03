@@ -33,10 +33,30 @@ select {
     min-width: 60px;
 }
 
-.result-container{
+.result-container {
     display: flex;
     justify-content: space-around;
     margin-top: 2%;
     width: 100%;
 }
 
+.result-item-currency {
+    border: 1px solid;
+    font-size: 11px;
+    padding: 6px;
+}
+
+.result-item-result {
+    border: 1px solid;
+    font-size: 11px;
+    padding: 6px;
+}
+
+
+.result-item-currency span {
+    motion: 10px;
+}
+
+.result-item-currency span {
+    margin: 10px;
+}

@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { addMonths, format, lastDayOfMonth } from 'date-fns';
 import { ChartData } from 'src/app/models/chart-data.model';
 import { CurrencyService } from 'src/app/services/currency-service/currency.service';
@@ -13,19 +14,27 @@ export class DetailComponent implements AfterViewInit {
 
   @ViewChild(ChartComponent) child: ChartComponent | undefined;
   public chartData: ChartData | undefined;
-  private currencyFrom = 'USD';
-  private currencyTo = 'BRL';
+  private currencyFrom = '';
+  private currencyTo = '';
   private lastMonthsDate: Array<string> | undefined;
   /**
    *
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
-    private currencyService: CurrencyService) {
+    private currencyService: CurrencyService,
+    private activatedRoute: ActivatedRoute) {
 
+    activatedRoute.params.subscribe(params => {
+      this.currencyFrom = params['from'];
+      this.currencyTo = params['to'];
+    });
   }
 
   ngAfterViewInit() {
 
+    this.loadPage();
+  }
+  loadPage() {
     this.chartData = new ChartData();
     this.lastMonthsDate = new Array<string>();
     this.chartData.labels = this.loadLastMonths();
