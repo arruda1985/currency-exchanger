@@ -8,9 +8,10 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { HeaderComponent } from './pages/shared/header/header.component';
 import { CurrencyConverterComponent } from './pages/shared/currency-converter/currency-converter.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CurrencyService } from './services/currency-service/currency.service';
 import { EnvironmentService } from './services/environment-service/environment.service';
+import { HttpRequestInterceptor } from './http-request-interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,14 @@ import { EnvironmentService } from './services/environment-service/environment.s
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [CurrencyService, EnvironmentService],
+  providers: [
+    CurrencyService,
+    EnvironmentService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
