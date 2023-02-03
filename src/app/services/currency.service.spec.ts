@@ -31,9 +31,9 @@ describe('CurrencyService', () => {
     const from = "USD";
     const to = "EUR";
     const ammount = 4.12;
-    const response: any = { status: 200 };
+    const response = { status: 200 };
 
-    service.convert(from, to, ammount).subscribe(data => {
+    service.convert(from, to, ammount).subscribe((data: any) => {
       expect(req.request.method).toBe('GET');
       expect(req.request.url).toBe(`${apiUrl}convert?from=${from}&to=${to}&amount=${ammount}`);
       expect(data.status).toBe(200);
@@ -43,6 +43,22 @@ describe('CurrencyService', () => {
     const req = httpMock.expectOne({
       method: 'GET',
       url: `${apiUrl}convert?from=${from}&to=${to}&amount=${ammount}`,
+    });
+    req.flush(response);
+  });
+
+  it('should get symbols from Fixer endpoint', (done) => {
+    const response = { status: 200 };
+
+    service.symbols().subscribe((data: any) => {
+      expect(req.request.url).toBe(`${apiUrl}symbols`);
+      expect(data.status).toBe(200);
+      done();
+    });
+
+    const req = httpMock.expectOne({
+      method: 'GET',
+      url: `${apiUrl}symbols`,
     });
     req.flush(response);
   });

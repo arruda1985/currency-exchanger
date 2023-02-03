@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,8 +19,10 @@ describe('AppComponent', () => {
         CurrencyConverterComponent
       ], imports: [
         AppRoutingModule,
-        ReactiveFormsModule
-      ]
+        ReactiveFormsModule,
+        HttpClientTestingModule
+      ],
+      providers:[]
     }).compileComponents();
   });
 
@@ -28,6 +31,4 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
-
 });

@@ -1,6 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { CurrencyService } from 'src/app/services/currency.service';
 
 import { CurrencyConverterComponent } from './currency-converter.component';
 
@@ -11,7 +13,8 @@ describe('CurrencyConverterComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CurrencyConverterComponent],
-      imports: [ReactiveFormsModule, AppRoutingModule]
+      imports: [ReactiveFormsModule, AppRoutingModule, HttpClientTestingModule],
+      providers: [CurrencyService]
     })
       .compileComponents();
 
@@ -38,7 +41,7 @@ describe('CurrencyConverterComponent', () => {
 
     component.swapCurrency();
 
-    // expect(component.convertForm.get('from')?.value).toBe(originValueto);
-    // expect(component.convertForm.get('to')?.value).toBe(originValueFrom);
+    expect(component.convertForm.get('from')?.value).toBe(originValueto);
+    expect(component.convertForm.get('to')?.value).toBe(originValueFrom);
   });
 });

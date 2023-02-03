@@ -11,8 +11,15 @@ export class CurrencyService {
 
   }
 
-  public convert(from: string, to: string, ammount: number): Observable<any> {
+  public convert(from: string, to: string, ammount: number) {
 
     return this.httpClient.get(this.apiUrl + "convert?from=" + from + "&to=" + to + "&amount=" + ammount);
+
+  }
+
+  public symbols() {
+
+    return this.httpClient.get(this.apiUrl + "symbols");
+    
   }
 }

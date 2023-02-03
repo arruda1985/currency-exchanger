@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IConvertionResult } from 'src/app/interfaces/convertion-result.interface';
+import { CurrencyService } from 'src/app/services/currency.service';
 import { CurrencySymbol } from '../../../models/currency-symbol.model';
 
 @Component({
@@ -21,14 +22,17 @@ export class CurrencyConverterComponent {
   });
 
 
-  constructor() {
+  constructor(private currencyService: CurrencyService) {
     this.symbolsArray = new Array<CurrencySymbol>();
     this.loadSymbols();
   }
 
   private loadSymbols() {
-
-    //call the service
+    this.currencyService.symbols().subscribe((data: any) => {
+      Object.keys(data.symbols).forEach(s => {
+        this.symbolsArray.push(new CurrencySymbol(s, data.symbols[s]));
+      });
+    });
   }
 
   public swapCurrency() {
@@ -39,11 +43,32 @@ export class CurrencyConverterComponent {
     this.convertForm.get("to")?.setValue(fromAux != null ? fromAux : null);
   }
 
+  public inputChanged(event: any) {
+    let newValue = event.value;
+
+    const splittedNumber = newValue.split('.');
+
+    if (splittedNumber.length > 1 && splittedNumber[1].length > 2) {
+      newValue = Number(newValue).toFixed(2);
+    }
+
+    const number = Number(newValue);
+
+    this.convertForm.patchValue({ ammount: number.toString() }, { emitEvent: false });
+    if (number > 0) {
+      this.convertForm.get("from")?.enable();
+      this.convertForm.get("to")?.enable();
+    } else {
+      this.convertForm.get("from")?.disable();
+      this.convertForm.get("to")?.disable();
+      this.convertForm.patchValue({ ammount: "0" }, { emitEvent: false });
+    }
+  }
 
 
   public convert() {
 
-      //call service
+    //call service
   }
 
 }
