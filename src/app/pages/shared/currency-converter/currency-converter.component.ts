@@ -18,7 +18,6 @@ export class CurrencyConverterComponent {
     ammount: new FormControl('', Validators.min(0)),
     from: new FormControl({ value: '', disabled: true }, Validators.required),
     to: new FormControl({ value: '', disabled: true }, Validators.required)
-
   });
 
 
@@ -43,7 +42,8 @@ export class CurrencyConverterComponent {
     this.convertForm.get("from")?.setValue(toAux != null ? toAux : null);
     this.convertForm.get("to")?.setValue(fromAux != null ? fromAux : null);
   }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public inputChanged(event: any) {
     let newValue = event.value;
 
@@ -69,7 +69,13 @@ export class CurrencyConverterComponent {
 
   public convert() {
 
-    //call service
+    this.currencyService.convert(
+      this.convertForm.controls['from'].value as string,
+      this.convertForm.controls['to'].value as string,
+      Number(this.convertForm.controls['ammount'].value))
+      .subscribe((data: IConvertionResult) => {
+        this.convertionResult = data;
+      });
   }
 
 }
