@@ -1,8 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { HomeComponent } from './pages/home/home.component';
+import { CurrencyConverterComponent } from './pages/shared/currency-converter/currency-converter.component';
 import { HeaderComponent } from './pages/shared/header/header.component';
 
 describe('AppComponent', () => {
@@ -12,8 +14,12 @@ describe('AppComponent', () => {
         AppComponent,
         HomeComponent,
         DetailComponent,
-        HeaderComponent
-      ], imports: [AppRoutingModule]
+        HeaderComponent,
+        CurrencyConverterComponent
+      ], imports: [
+        AppRoutingModule,
+        ReactiveFormsModule
+      ]
     }).compileComponents();
   });
 

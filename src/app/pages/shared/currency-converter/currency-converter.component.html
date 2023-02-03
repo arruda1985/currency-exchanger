@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="item-title">Currency Exchanger</div>
+    <div>
+        <form [formGroup]="convertForm" (ngSubmit)="convert()">
+            <div class="form-container">
+                <div>
+                    <span>Amount</span>
+                    <input type="number" (change)="inputChanged($event.target)" formControlName="ammount" />
+                </div>
+                <div>
+                    <span>From</span>
+                    <select formControlName="from">
+                        <option *ngFor="let symbol of symbolsArray" [ngValue]="symbol.id">
+                            {{ symbol.id }}
+                        </option>
+                    </select>
+                </div>
+                <div (click)="swapCurrency()">
+                    <img src="../../assets/imgs/double-arrow.jpg">
+                </div>
+                <div>
+                    <span>To</span>
+                    <select formControlName="to">
+                        <option *ngFor="let symbol of symbolsArray" [ngValue]="symbol.id">
+                            {{ symbol.id }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="item-btn">
+                <button type="submit" [disabled]="convertForm.invalid">Convert</button>
+            </div>
+        </form>
+    </div>
+    <div class="result-container">
+        <div>1.00 {{convertionResult?.query?.from}} = {{convertionResult?.info?.rate}} </div>
+        <div> {{convertionResult?.result | currency: convertionResult?.query?.to}} {{convertionResult?.query?.to}}</div>
+        <div [routerLink]="['/detail']"> More Details</div>
+    </div>
+</div>
