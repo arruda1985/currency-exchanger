@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+img {
+    width: 50px;
+}
+
+.btn-container {
+    display: flex;
+}
+
+.btn-item {
+    border: 1px solid;
+    font-size: 0.75rem;
+    padding: 13px;
+    margin-left: 5px;
+}
