@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CurrencyService } from './services/currency-service/currency.service';
 import { EnvironmentService } from './services/environment-service/environment.service';
 import { HttpRequestInterceptor } from './http-request-interceptor';
+import { ChartComponent } from './pages/shared/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HttpRequestInterceptor } from './http-request-interceptor';
     HomeComponent,
     DetailComponent,
     HeaderComponent,
-    CurrencyConverterComponent
+    CurrencyConverterComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
