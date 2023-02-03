@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { CurrencyService } from 'src/app/services/currency.service';
+import { CurrencyService } from 'src/app/services/currency-service/currency.service';
 
 import { CurrencyConverterComponent } from './currency-converter.component';
 

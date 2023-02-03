@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IConvertionResult } from 'src/app/interfaces/convertion-result.interface';
-import { CurrencyService } from 'src/app/services/currency.service';
+import { CurrencyService } from 'src/app/services/currency-service/currency.service';
 import { CurrencySymbol } from '../../../models/currency-symbol.model';
 
 @Component({
@@ -28,6 +28,7 @@ export class CurrencyConverterComponent {
   }
 
   private loadSymbols() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.currencyService.symbols().subscribe((data: any) => {
       Object.keys(data.symbols).forEach(s => {
         this.symbolsArray.push(new CurrencySymbol(s, data.symbols[s]));
@@ -42,7 +43,7 @@ export class CurrencyConverterComponent {
     this.convertForm.get("from")?.setValue(toAux != null ? toAux : null);
     this.convertForm.get("to")?.setValue(fromAux != null ? fromAux : null);
   }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   public inputChanged(event: any) {
     let newValue = event.value;
 

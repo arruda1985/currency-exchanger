@@ -33,6 +33,7 @@ describe('CurrencyService', () => {
     const ammount = 4.12;
     const response = { status: 200 };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     service.convert(from, to, ammount).subscribe((data: any) => {
       expect(req.request.method).toBe('GET');
       expect(req.request.url).toBe(`${apiUrl}convert?from=${from}&to=${to}&amount=${ammount}`);
@@ -49,7 +50,7 @@ describe('CurrencyService', () => {
 
   it('should get symbols from Fixer endpoint', (done) => {
     const response = { status: 200 };
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     service.symbols().subscribe((data: any) => {
       expect(req.request.url).toBe(`${apiUrl}symbols`);
       expect(data.status).toBe(200);

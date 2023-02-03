@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { EnvironmentService } from '../environment-service/environment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrencyService {
-  public apiUrl = "https://api.apilayer.com/fixer/";
-  constructor(private httpClient: HttpClient) {
+  apiUrl: string;
 
+  constructor(private httpClient: HttpClient, private environmentService: EnvironmentService) {
+    this.apiUrl = environmentService.apiUrl;
   }
 
   public convert(from: string, to: string, ammount: number) {
@@ -20,6 +22,6 @@ export class CurrencyService {
   public symbols() {
 
     return this.httpClient.get(this.apiUrl + "symbols");
-    
+
   }
 }
