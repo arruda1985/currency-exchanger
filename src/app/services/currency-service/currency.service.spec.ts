@@ -63,4 +63,23 @@ describe('CurrencyService', () => {
     });
     req.flush(response);
   });
+
+  it('should get historical data from Fixer endpoint', (done) => {
+    const response = { status: 200 };
+    const base = 'USD';
+    const symbols = ['EUR'];
+    const date = '2023-02-03';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    service.historical(base, symbols, date).subscribe((data: any) => {
+      expect(req.request.url).toBe(apiUrl + date + "?base" + base + "&symbols=" + symbols);
+      expect(data.status).toBe(200);
+      done();
+    });
+
+    const req = httpMock.expectOne({
+      method: 'GET',
+      url: apiUrl + date + "?base" + base + "&symbols=" + symbols,
+    });
+    req.flush(response);
+  });
 });

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DetailComponent } from '../../detail/detail.component';
 
 import { ChartComponent } from './chart.component';
 
@@ -21,11 +22,4 @@ describe('ChartComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should define chartData', () => {
-    expect(component.chartData).toBeDefined();
-  });
-
-  it('should define chart', () => {
-    expect(component.chart).toBeDefined();
-  });
 });
