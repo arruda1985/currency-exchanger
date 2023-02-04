@@ -1,2 +1,12 @@
 <div class="item-title">Currency Exchanger</div>
 <app-currency-converter [page]="'home'"></app-currency-converter>
+
+<div class="container">
+    <div *ngFor="let pc of popularCards" class="item-card-container">
+        <span>
+            <div>{{pc?.currency}}</div>
+            <div>{{pc?.value}}</div>
+        </span>
+    </div>
+
+</div>

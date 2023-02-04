@@ -71,14 +71,14 @@ describe('CurrencyService', () => {
     const date = '2023-02-03';
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     service.historical(base, symbols, date).subscribe((data: any) => {
-      expect(req.request.url).toBe(apiUrl + date + "?base" + base + "&symbols=" + symbols);
+      expect(req.request.url).toBe(apiUrl + date + "?base=" + base + "&symbols=" + symbols);
       expect(data.status).toBe(200);
       done();
     });
 
     const req = httpMock.expectOne({
       method: 'GET',
-      url: apiUrl + date + "?base" + base + "&symbols=" + symbols,
+      url: apiUrl + date + "?base=" + base + "&symbols=" + symbols,
     });
     req.flush(response);
   });

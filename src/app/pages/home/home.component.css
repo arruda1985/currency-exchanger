@@ -1,3 +1,22 @@
 .item-title {
     padding-top: 10px;
 }
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5%;
+    justify-content: space-between;
+
+}
+
+.item-card-container {
+    min-width: 30%;
+    border: 1px solid;
+    margin: 5px;
+}
+
+.item-card-container span {
+    margin: 0 auto;
+    display: table;
+}
