@@ -1,19 +1,28 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { CurrencyService } from 'src/app/services/currency-service/currency.service';
 import { ChartComponent } from '../shared/chart/chart.component';
-
+import { of } from 'rxjs';
 import { DetailComponent } from './detail.component';
+import { CurrencyConverterComponent } from '../shared/currency-converter/currency-converter.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('DetailComponent', () => {
   let component: DetailComponent;
   let fixture: ComponentFixture<DetailComponent>;
 
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [DetailComponent, ChartComponent],
-      providers: [CurrencyService]
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
+      declarations: [DetailComponent, ChartComponent, CurrencyConverterComponent],
+      providers: [CurrencyService,
+        {
+          provide: ActivatedRoute, useValue: {
+            params: of({ from: 'BRL', to: 'USD' }),
+          },
+        }]
     })
       .compileComponents();
 

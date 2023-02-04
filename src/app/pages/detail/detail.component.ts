@@ -17,12 +17,13 @@ export class DetailComponent implements AfterViewInit {
   private currencyFrom = '';
   private currencyTo = '';
   private lastMonthsDate: Array<string> | undefined;
+
   /**
    *
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private currencyService: CurrencyService,
-    private activatedRoute: ActivatedRoute) {
+    activatedRoute: ActivatedRoute) {
 
     activatedRoute.params.subscribe(params => {
       this.currencyFrom = params['from'];
@@ -34,6 +35,7 @@ export class DetailComponent implements AfterViewInit {
 
     this.loadPage();
   }
+
   loadPage() {
     this.chartData = new ChartData();
     this.lastMonthsDate = new Array<string>();
@@ -41,12 +43,12 @@ export class DetailComponent implements AfterViewInit {
     this.loadChartValue();
     this.chartData.dataSetLabel = this.currencyFrom;
     this.changeDetectorRef.detectChanges();
-
   }
 
   public loadChartValue() {
     let aux = 0;
     this.lastMonthsDate?.forEach(m => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.currencyService.historical(this.currencyFrom, [this.currencyTo], m.split('T')[0]).subscribe((data: any) => {
 
         this.chartData?.dataSetValues?.push(data.rates[this.currencyTo]);

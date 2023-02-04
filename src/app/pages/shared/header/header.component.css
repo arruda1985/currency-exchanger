@@ -9,11 +9,12 @@ img {
 
 .btn-container {
     display: flex;
+    height: 30px;
 }
 
 .btn-item {
     border: 1px solid;
     font-size: 0.75rem;
-    padding: 13px;
+    padding: 7px;
     margin-left: 5px;
 }

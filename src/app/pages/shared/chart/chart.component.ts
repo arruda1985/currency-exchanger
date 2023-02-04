@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { ChartData } from 'src/app/models/chart-data.model';
 

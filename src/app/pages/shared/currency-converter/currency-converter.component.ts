@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IConvertionResult } from 'src/app/interfaces/convertion-result.interface';
 import { ISymbolResult } from 'src/app/interfaces/symbol-result.interface';
@@ -14,31 +14,34 @@ export class CurrencyConverterComponent {
 
   public symbolsArray: Array<CurrencySymbol>;
   public convertionResult: IConvertionResult | undefined;
-
+  public currentPage: string | undefined;
+  public showResult = false;
   public convertForm = new FormGroup({
     ammount: new FormControl('', Validators.min(0)),
-    from: new FormControl({ value: '', disabled: true }, Validators.required),
-    to: new FormControl({ value: '', disabled: true }, Validators.required)
+    from: new FormControl({ value: 'EUR', disabled: true }, Validators.required),
+    to: new FormControl({ value: 'USD', disabled: true }, Validators.required)
   });
 
+  @Input() page = '';
 
   constructor(private currencyService: CurrencyService) {
     this.symbolsArray = new Array<CurrencySymbol>();
 
-    // const x: unknown = {
-    //   'result': 10,
-    //   'query': {
-    //     'from': "GBP",
-    //     'to': "JPY",
-    //     'amount': 25
-    //   },
-    //   'info': {
-    //     'rate': 157.993729
-    //   },
-    // };
 
-    // this.convertionResult = x as IConvertionResult;
-     this.loadSymbols();
+    const x: unknown = {
+      'result': 10,
+      'query': {
+        'from': "GBP",
+        'to': "JPY",
+        'amount': 25
+      },
+      'info': {
+        'rate': 157.993729
+      },
+    };
+
+    this.convertionResult = x as IConvertionResult;
+    this.loadSymbols();
   }
 
   private loadSymbols() {
@@ -88,6 +91,7 @@ export class CurrencyConverterComponent {
       Number(this.convertForm.controls['ammount'].value))
       .subscribe((data: IConvertionResult) => {
         this.convertionResult = data;
+        this.showResult = true;
       });
   }
 
