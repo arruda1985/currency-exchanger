@@ -1,3 +1,6 @@
+<div class="currency-container">
+    {{currencyName}}
+</div>
 <div class="container">
     <div>
         <form [formGroup]="convertForm" (ngSubmit)="convert()">
@@ -8,7 +11,7 @@
                 </div>
                 <div>
                     <span>From</span>
-                    <select formControlName="from">
+                    <select formControlName="from" (change)="fromChanged($event)">
                         <option *ngFor="let symbol of symbolsArray" [ngValue]="symbol.id">
                             {{ symbol.id }}
                         </option>

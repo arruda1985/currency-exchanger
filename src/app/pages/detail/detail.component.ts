@@ -17,7 +17,7 @@ export class DetailComponent implements AfterViewInit {
   public currencyFrom = '';
   public currencyTo = '';
   public ammount = '';
-  public currencyName = '';
+  public currencyName: string | undefined;
   private lastMonthsDate: Array<string> | undefined;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
@@ -42,12 +42,12 @@ export class DetailComponent implements AfterViewInit {
   }
 
   loadPage() {
-    // this.chartData = new ChartData();
-    // this.lastMonthsDate = new Array<string>();
-    // this.chartData.labels = this.loadLastMonths();
-    // this.loadChartValue();
-    // this.chartData.dataSetLabel = this.currencyFrom;
-    // this.changeDetectorRef.detectChanges();
+    this.chartData = new ChartData();
+    this.lastMonthsDate = new Array<string>();
+    this.chartData.labels = this.loadLastMonths();
+    this.loadChartValue();
+    this.chartData.dataSetLabel = this.currencyFrom;
+    this.changeDetectorRef.detectChanges();
   }
 
   public loadChartValue() {

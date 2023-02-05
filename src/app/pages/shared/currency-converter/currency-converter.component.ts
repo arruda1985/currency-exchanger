@@ -15,6 +15,7 @@ export class CurrencyConverterComponent {
   public symbolsArray: Array<CurrencySymbol>;
   public convertionResult: IConvertionResult | undefined;
   public currentPage: string | undefined;
+  public currencyName: string | undefined;
   public showResult = false;
   public convertForm = new FormGroup({
     ammount: new FormControl('', [Validators.min(0), Validators.required]),
@@ -37,7 +38,7 @@ export class CurrencyConverterComponent {
     this.currencyService.symbols().subscribe((data: ISymbolResult) => {
       Object.keys(data.symbols).forEach(s => {
         this.symbolsArray.push(new CurrencySymbol(s, data.symbols[s]));
-        // this.loadSelected();
+        this.loadSelected();
       });
     });
   }
@@ -78,11 +79,18 @@ export class CurrencyConverterComponent {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public fromChanged(newValue: any) {
+    const auxStr = newValue.target.value;
+    const code = auxStr.substr(auxStr.length - 3)
+    this.currencyName = this.symbolsArray.filter(sa => sa.id === code)[0].name
+  }
 
   public convert() {
-    this.reload.emit([this.convertForm.controls['from'].value as string, 
+    this.reload.emit([this.convertForm.controls['from'].value as string,
     this.convertForm.controls['to'].value as string,
-    this.getCurrencyNameByCode( this.convertForm.controls['from'].value as string)]);
+    this.getCurrencyNameByCode(this.convertForm.controls['from'].value as string)]);
+
     this.currencyService.convert(
       this.convertForm.controls['from'].value as string,
       this.convertForm.controls['to'].value as string,

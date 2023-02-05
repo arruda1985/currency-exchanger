@@ -3,7 +3,7 @@ import 'zone.js/dist/zone-error';
 
 
 const apiUrl = 'https://api.apilayer.com/fixer/';
-const apiKey = 'SYK6IPSPGcXVaL0ihMFlzQG0tLZDiey2';
+const apiKey = 'MoZRaIzU3cz5kEwrYaVsP5gAO3926uBx';
 
 export const environment: IEnvironment = {
   production: false,
