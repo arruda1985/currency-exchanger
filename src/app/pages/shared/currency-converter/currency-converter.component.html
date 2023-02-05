@@ -1,5 +1,4 @@
 <div class="container">
-  
     <div>
         <form [formGroup]="convertForm" (ngSubmit)="convert()">
             <div class="form-container">
@@ -39,7 +38,7 @@
         </div>
         <div class="result-item-result"> {{convertionResult.result | currency: convertionResult.query.to}}
             {{convertionResult.query.to}}</div>
-        <div *ngIf="page === 'home'"> <button
+        <div *ngIf="page === 'home'"> <button [disabled]="convertForm.invalid"
                 [routerLink]="['/detail',convertForm.get('from')?.value, convertForm.get('to')?.value]"
                 type="button">More
                 Details</button>

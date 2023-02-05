@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IConvertionResult } from 'src/app/interfaces/convertion-result.interface';
 import { ISymbolResult } from 'src/app/interfaces/symbol-result.interface';
@@ -17,30 +17,19 @@ export class CurrencyConverterComponent {
   public currentPage: string | undefined;
   public showResult = false;
   public convertForm = new FormGroup({
-    ammount: new FormControl('', Validators.min(0)),
-    from: new FormControl({ value: 'EUR', disabled: true }, Validators.required),
-    to: new FormControl({ value: 'USD', disabled: true }, Validators.required)
+    ammount: new FormControl('', [Validators.min(0), Validators.required]),
+    from: new FormControl({ value: '', disabled: true }, Validators.required),
+    to: new FormControl({ value: '', disabled: true }, Validators.required)
   });
 
   @Input() page = '';
+  @Input() from = '';
+  @Input() to = '';
+  @Input() ammount = '';
+  @Output() reload = new EventEmitter<string[]>();
 
   constructor(private currencyService: CurrencyService) {
     this.symbolsArray = new Array<CurrencySymbol>();
-
-
-    const x: unknown = {
-      'result': 10,
-      'query': {
-        'from': "GBP",
-        'to': "JPY",
-        'amount': 25
-      },
-      'info': {
-        'rate': 157.993729
-      },
-    };
-
-    this.convertionResult = x as IConvertionResult;
     this.loadSymbols();
   }
 
@@ -48,8 +37,14 @@ export class CurrencyConverterComponent {
     this.currencyService.symbols().subscribe((data: ISymbolResult) => {
       Object.keys(data.symbols).forEach(s => {
         this.symbolsArray.push(new CurrencySymbol(s, data.symbols[s]));
+        // this.loadSelected();
       });
     });
+  }
+
+  loadSelected() {
+    this.convertForm.get("from")?.setValue(this.from != null ? this.from : 'EUR');
+    this.convertForm.get("to")?.setValue(this.to != null ? this.to : 'USD');
   }
 
   public swapCurrency() {
@@ -85,6 +80,9 @@ export class CurrencyConverterComponent {
 
 
   public convert() {
+    this.reload.emit([this.convertForm.controls['from'].value as string, 
+    this.convertForm.controls['to'].value as string,
+    this.getCurrencyNameByCode( this.convertForm.controls['from'].value as string)]);
     this.currencyService.convert(
       this.convertForm.controls['from'].value as string,
       this.convertForm.controls['to'].value as string,
@@ -92,7 +90,12 @@ export class CurrencyConverterComponent {
       .subscribe((data: IConvertionResult) => {
         this.convertionResult = data;
         this.showResult = true;
+
       });
+  }
+
+  public getCurrencyNameByCode(code: string): string {
+    return this.symbolsArray.filter(s => s.id == code)[0].name;
   }
 
 }

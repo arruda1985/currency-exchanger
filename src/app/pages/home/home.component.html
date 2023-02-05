@@ -4,8 +4,8 @@
 <div class="container">
     <div *ngFor="let pc of popularCards" class="item-card-container">
         <span>
-            <div>{{pc?.currency}}</div>
-            <div>{{pc?.value}}</div>
+            <div>{{pc?.currency}} </div>
+            <div>{{pc?.value | currency: pc.currency}}</div>
         </span>
     </div>
 

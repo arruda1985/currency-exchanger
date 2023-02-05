@@ -13,7 +13,7 @@ export class HomeComponent {
   public popularCards: Array<PopularCards> | undefined;
 
   constructor(private currencyService: CurrencyService) {
-    this.loadCards();
+     this.loadCards();
   }
 
   public loadCards() {

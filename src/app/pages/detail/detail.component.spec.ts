@@ -7,6 +7,7 @@ import { of } from 'rxjs';
 import { DetailComponent } from './detail.component';
 import { CurrencyConverterComponent } from '../shared/currency-converter/currency-converter.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 describe('DetailComponent', () => {
   let component: DetailComponent;
@@ -15,7 +16,7 @@ describe('DetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, ReactiveFormsModule],
+      imports: [HttpClientTestingModule, ReactiveFormsModule, AppRoutingModule],
       declarations: [DetailComponent, ChartComponent, CurrencyConverterComponent],
       providers: [CurrencyService,
         {
@@ -39,7 +40,7 @@ describe('DetailComponent', () => {
 
     const monthName = component.getMonthName(new Date('2023-02-03'));
 
-    expect(monthName).toBe("February");
+    expect(monthName).toBe("February - 2023");
   });
 
   it('should load last twelve months', () => {

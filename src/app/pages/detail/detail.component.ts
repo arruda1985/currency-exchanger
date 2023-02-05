@@ -14,13 +14,12 @@ export class DetailComponent implements AfterViewInit {
 
   @ViewChild(ChartComponent) child: ChartComponent | undefined;
   public chartData: ChartData | undefined;
-  private currencyFrom = '';
-  private currencyTo = '';
+  public currencyFrom = '';
+  public currencyTo = '';
+  public ammount = '';
+  public currencyName = '';
   private lastMonthsDate: Array<string> | undefined;
 
-  /**
-   *
-   */
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private currencyService: CurrencyService,
     activatedRoute: ActivatedRoute) {
@@ -31,18 +30,24 @@ export class DetailComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  currencyChanged(event: string[]) {
+    this.currencyFrom = event[0];
+    this.currencyTo = event[1];
+    this.currencyName = event[2];
+    this.loadPage();
+  }
 
+  ngAfterViewInit() {
     this.loadPage();
   }
 
   loadPage() {
-    this.chartData = new ChartData();
-    this.lastMonthsDate = new Array<string>();
-    this.chartData.labels = this.loadLastMonths();
-    this.loadChartValue();
-    this.chartData.dataSetLabel = this.currencyFrom;
-    this.changeDetectorRef.detectChanges();
+    // this.chartData = new ChartData();
+    // this.lastMonthsDate = new Array<string>();
+    // this.chartData.labels = this.loadLastMonths();
+    // this.loadChartValue();
+    // this.chartData.dataSetLabel = this.currencyFrom;
+    // this.changeDetectorRef.detectChanges();
   }
 
   public loadChartValue() {
@@ -62,8 +67,6 @@ export class DetailComponent implements AfterViewInit {
 
   public loadLastMonths(): string[] {
     const lastMonths = new Array<string>();
-
-
     const now = new Date();
 
     for (let i = 0; i < 12; i++) {
@@ -77,7 +80,7 @@ export class DetailComponent implements AfterViewInit {
   }
 
   public getMonthName(date: Date): string {
-    return format(date, "MMMM");
+    return format(date, "MMMM") + ' - ' + date.getFullYear();
   }
 
   public loadChartData() {
